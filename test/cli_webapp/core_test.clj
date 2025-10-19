@@ -1,7 +1,7 @@
-(ns cli-webapp.handler-test
+(ns cli-webapp.core-test
   (:require [clojure.test :refer :all]
             [ring.mock.request :as mock]
-            [cli-webapp.handler :refer :all]))
+            [cli-webapp.core :refer :all]))
 
 (deftest test-app
   (testing "main route"
