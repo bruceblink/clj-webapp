@@ -1,4 +1,4 @@
-(ns cli-webapp.core
+(ns clj-webapp.core
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
             [ring.adapter.jetty :as jetty]

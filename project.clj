@@ -7,8 +7,8 @@
                  [ring/ring-defaults "0.4.0"]
                  [ring/ring-jetty-adapter "1.10.0"]]
   :plugins [[lein-ring "0.12.5"]]
-  :ring {:handler cli-webapp.core/app}
-  :main ^:skip-aot cli-webapp.core
+  :ring {:handler clj-webapp.core/app}
+  :main ^:skip-aot clj-webapp.core
   :target-path "target/%s"
   :profiles
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
