@@ -1,6 +1,6 @@
 # cli-webapp
 
-FIXME
+使用compojure构建的Clojure web应用
 
 ## Prerequisites
 
