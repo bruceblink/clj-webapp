@@ -1,6 +1,6 @@
 (defproject cli-webapp "0.1.0-SNAPSHOT"
   :description "FIXME: write description"
-  :url "http://example.com/FIXME"
+  :url "https://github.com/bruceblink/clj-webapp"
   :min-lein-version "2.0.0"
   :dependencies [[org.clojure/clojure "1.11.1"]
                  [compojure "1.7.0"]
