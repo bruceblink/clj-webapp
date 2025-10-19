@@ -3,7 +3,7 @@
             [compojure.core :refer :all]
             [compojure.route :as route]
             [ring.adapter.jetty :as jetty]
-            [ring.middleware.defaults :refer [wrap-defaults site-defaults]]))
+            [ring.middleware.defaults :refer [wrap-defaults api-defaults]]))
 
 ;; 定义一个 snippets的promise
 (def snippets (repeatedly promise))
@@ -36,7 +36,8 @@
 
 ;; 将默认中间件包装上
 (def app
-  (wrap-defaults app-routes site-defaults))
+  ;; 使用 api-defaults 禁用 anti-forgery
+  (wrap-defaults app-routes api-defaults))
 
 ;; 启动服务器
 (defn -main [& args]
