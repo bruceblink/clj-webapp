@@ -13,13 +13,15 @@
     (let [response (app (mock/request :get "/invalid"))]
       (is (= (:status response) 404))))
 
-  (testing "snippet route"
-    (let [response (app (mock/request :put "/snippet/0" "Twas brilling, and the slithy toves"))]
-      (is (= (:status response) 200))
-      (is (= (:body response) "OK"))
-      )
-    )
-
   )
+
+(deftest test-api-snippet
+  (testing "snippet route"
+    (let [req (-> (mock/request :put "/snippet/0")
+                  (mock/body "Twas brilling, and the slithy toves"))
+          response (app req)]
+      (is (= 200 (:status response)))
+      (is (= "OK" (:body response))))))
+
 
 
