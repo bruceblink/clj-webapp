@@ -1,44 +1,15 @@
 (ns clj-webapp.core
-  (:require [clojure.edn :as edn]
-            [compojure.core :refer :all]
-            [compojure.route :as route]
-            [ring.adapter.jetty :as jetty]
-            [ring.middleware.defaults :refer [wrap-defaults api-defaults]]))
-
-;; 定义一个 snippets的promise
-(def snippets (repeatedly promise))
-
-;; 更新 snippet
-(defn accept-snippet [n text]
-  (deliver (nth snippets n) text)
+  (:require [ring.adapter.jetty :as jetty]
+            [clj-webapp.routes :refer [app-routes]]
+            [clj-webapp.middleware :refer [wrap-base]])
   )
 
-(future
-  (doseq [snippet (map deref snippets)]
-    (println snippet)
-    )
-  )
-
-;; 定义路由
-(defroutes app-routes
-           (GET "/" [] "Hello World")
-           (GET "/hello/:name" [name]
-             (str "<h1>Hello, " name "!</h1>"))
-           ;; 定义分片路由
-           (PUT "/snippet/:n" [n :as {:keys [body]}]
-             (accept-snippet (edn/read-string n) (slurp body))
-             (str "OK")
-             )
-
-           (POST "/api/echo" {body :body}
-             (str "You posted: " (slurp body)))
-           (route/not-found "Not Found"))
-
-;; 将默认中间件包装上
+;; 组装 app
 (def app
-  ;; 使用 api-defaults 禁用 anti-forgery  适用于 REST API / 前后端分离
-  (wrap-defaults app-routes api-defaults))
+  (wrap-base app-routes)
+  )
 
 ;; 启动服务器
-(defn -main [& args]
-  (jetty/run-jetty app {:port 3001 :join? false}))
+(defn -main [& _]
+  (jetty/run-jetty app {:port 3001 :join? false})
+  )
