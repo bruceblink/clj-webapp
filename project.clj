@@ -5,7 +5,8 @@
   :dependencies [[org.clojure/clojure "1.11.1"]
                  [compojure "1.7.0"]
                  [ring/ring-defaults "0.4.0"]
-                 [ring/ring-jetty-adapter "1.10.0"]]
+                 [ring/ring-jetty-adapter "1.10.0"]
+                 [cheshire "5.0.1"]]
   :plugins [[lein-ring "0.12.5"]]
   :ring {:handler clj-webapp.core/app}
   :main ^:skip-aot clj-webapp.core
