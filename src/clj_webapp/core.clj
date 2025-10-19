@@ -36,7 +36,7 @@
 
 ;; 将默认中间件包装上
 (def app
-  ;; 使用 api-defaults 禁用 anti-forgery
+  ;; 使用 api-defaults 禁用 anti-forgery  适用于 REST API / 前后端分离
   (wrap-defaults app-routes api-defaults))
 
 ;; 启动服务器
