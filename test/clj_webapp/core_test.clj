@@ -15,13 +15,25 @@
 
   )
 
-(deftest test-api-snippet
+(deftest test-api-snippet-0
   (testing "snippet route"
     (let [req (-> (mock/request :put "/snippet/0")
                   (mock/body "Twas brilling, and the slithy toves"))
           response (app req)]
       (is (= 200 (:status response)))
-      (is (= "OK" (:body response))))))
+      (is (= "OK" (:body response)))))
+  ;;  Twas brilling, and the slithy toves
+  )
 
+(deftest test-api-snippet-2
+
+  (testing "snippet route"
+    (let [req (-> (mock/request :put "/snippet/2")
+                  (mock/body "Twas brilling, and the slithy toves"))
+          response (app req)]
+      (is (= 200 (:status response)))
+      (is (= "OK" (:body response)))))
+  ;;  没有返回值
+  )
 
 
