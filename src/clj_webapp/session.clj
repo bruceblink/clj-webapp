@@ -2,8 +2,7 @@
 
 (def sessions "会话 返回(atom {}) " (atom {}))
 
-(def last-session-id
-  "返回会话id (atom integer)"
+(def last-session-id "返回最新的会话id (atom integer)"
   (atom 0)
   )
 
@@ -12,14 +11,21 @@
   (swap! last-session-id inc)
   )
 
-(defn new-sessions "创建新的会话 返回一个 (atom {}) 对象" [initial]
-  (let [session-id (next-session-id)]
-    (swap! sessions assoc session-id initial)
+(defn now "返回当前时间戳毫秒数" []
+  (System/currentTimeMillis)
+  )
+
+(defn new-session "创建新的会话 返回一个 (atom {}) 对象" [initial]
+  (let [session-id (next-session-id)
+        session (assoc initial :last-referenced (atom (now)))]  ;;初始化 session
+    (swap! sessions assoc session-id session)
     session-id
     )
   )
 
-(defn get-session "获取会话 返回 (atom integer) 对象"
-  [id]
-  (@sessions id)
+(defn get-session "获取会话 返回 (atom integer) 对象" [id]
+  (let [session (@sessions id)]
+    (reset! (:last-referenced session) (now))
+    session
+    )
   )
