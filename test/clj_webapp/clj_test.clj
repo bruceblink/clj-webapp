@@ -14,3 +14,18 @@
     (is (= 43 (swap! my-atom inc))))
   (testing "update atom2"
     (is (= 45 (swap! my-atom + 2)))))  ;; 注意这里是从 43 -> 45
+
+
+(deftest atom-validator
+  (testing "use validator"
+    (let [non-negative (atom 0 :validator #(>= % 0))]
+      ;; 成功情况
+      (is (= 42 (reset! non-negative 42)))  ;; ✅ 正确断言写法
+      ;; 失败情况
+      (is (thrown? IllegalStateException    ;; thrown? 只能运行在clojure.test中
+                   (reset! non-negative -1))) ;; ✅ 会抛出异常
+      ;; 确认值未被修改
+      (is (= 42 @non-negative))
+      )
+    )
+  )
