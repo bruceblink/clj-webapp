@@ -29,3 +29,33 @@
       )
     )
   )
+
+(deftest atom-watcher
+  (testing "use watcher"
+    (let [a (atom 0)
+          out (with-out-str                      ;; 捕获 println 输出
+                (add-watch a :print
+                           #(println "Changed from" %3 "to" %4))
+                (swap! a + 2))]                   ;; 触发 watcher
+
+      (is (re-find #"Changed from 0 to 2" out))   ;; 验证输出字符串
+      (is (= 2 @a))
+      )
+    )
+  )
+
+(deftest atom-watcher-with-redefs
+  (testing "use watcher with redefs"
+    (let [a (atom 0)
+          called (atom nil)
+          ]
+      (with-redefs [println (fn [& args] (reset! called args))] ;; 使用 with-redefs 替换 println 输出
+        (add-watch a :print
+                   #(println "Changed from" %3 "to" %4))
+        (swap! a + 2)
+        )
+      (is (= ["Changed from" 0 "to" 2] @called))   ;; 验证输出字符串
+      (is (= 2 @a))
+      )
+    )
+  )
