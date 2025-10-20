@@ -1,4 +1,7 @@
-(ns clj-webapp.session)
+(ns clj-webapp.session
+  (:require [schejulure.core     :refer [schedule]]
+            [flatland.useful.map :refer [remove-vals]])
+  )
 
 (def sessions "会话 返回(atom {}) " (atom {}))
 
@@ -28,4 +31,25 @@
     (reset! (:last-referenced session) (now))
     session
     )
+  )
+
+(defn session-expiry-time
+  "会话过期时间"
+  []
+  (- (now) (* 10 60 1000))                                  ;; 10分钟
+  )
+
+(defn expired?
+  "是否过期 返回bool值"
+  [session]
+  (< @(:last-referenced session) (session-expiry-time))
+  )
+
+(defn sweep-sessions
+  "删除过期的session"
+  []
+  (swap! sessions #(remove-vals % expired?)))
+
+(def session-sweeper "定时清除过期的session"
+  (schedule {:min (range 0 60 5)} sweep-sessions )
   )
