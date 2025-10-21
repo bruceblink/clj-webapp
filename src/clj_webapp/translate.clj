@@ -10,3 +10,9 @@
     ((client/post translator {:body text} :body))
     )
   )
+
+(defn get-translation
+  "通过session获取translation"
+  [session n]
+  @(nth @(:translations session) n)
+  )
