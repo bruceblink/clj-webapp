@@ -1,4 +1,5 @@
 (ns clj-webapp.core
+  (:gen-class)
   (:require [ring.adapter.jetty :as jetty]
             [clj-webapp.routes :refer [app-routes]]
             [clj-webapp.middleware :refer [wrap-base]])
@@ -10,6 +11,6 @@
   )
 
 ;; 启动服务器
-(defn -main [& _]
-  (jetty/run-jetty app {:port 3001 :join? false})
-  )
+(defn -main [& args]
+  (let [port (Integer/parseInt (or (first args) "3001"))]
+    (jetty/run-jetty app {:port port :join? true})))

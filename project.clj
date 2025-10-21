@@ -15,6 +15,6 @@
   :ring {:handler clj-webapp.core/app}
   :main ^:skip-aot clj-webapp.core
   :target-path "target/%s"
-  :profiles
-  {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
-                        [ring/ring-mock "0.3.2"]]}})
+  :profiles {:uberjar {:aot :all :jvm-opts ["-Dclojure.compiler.direct-linking=true"]} }
+  :dev {:dependencies [[javax.servlet/servlet-api "2.5"]
+                       [ring/ring-mock "0.3.2"]]})
