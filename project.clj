@@ -6,6 +6,7 @@
                  [compojure "1.7.0"]
                  [ring/ring-defaults "0.4.0"]
                  [ring/ring-jetty-adapter "1.10.0"]
+                 [ring/ring-json "0.5.1"]
                  [cheshire "5.0.1"]
                  [clj-http "0.7.0"]
                  [schejulure "0.1.4"]
