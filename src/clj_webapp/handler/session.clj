@@ -1,6 +1,4 @@
-(ns clj-webapp.handler.session
-  (:require [clj-webapp.handler.sentences :refer [strings->sentences]]
-            [clj-webapp.handler.translate :refer [translate]]))
+(ns clj-webapp.handler.session)
 
 (def sessions "会话 返回(atom {}) " (atom {}))
 
@@ -29,16 +27,5 @@
   (let [session (@sessions id)]
     (reset! (:last-referenced session) (now))
     session
-    )
-  )
-
-(defn create-session
-  "创建会话"
-  []
-  (let [snippets (repeatedly promise)
-        translations (delay (map translate
-                                 (strings->sentences (map deref snippets))))
-        ]
-    (new-session {:snippets snippets :transients translations})
     )
   )
