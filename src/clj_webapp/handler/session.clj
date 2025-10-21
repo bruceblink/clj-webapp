@@ -1,6 +1,6 @@
 (ns clj-webapp.handler.session
   (:require [clj-webapp.sentences :refer [strings->sentences]]
-            [clj-webapp.translate :refer [translate]]))
+            [clj-webapp.handler.translate :refer [translate]]))
 
 (def sessions "会话 返回(atom {}) " (atom {}))
 

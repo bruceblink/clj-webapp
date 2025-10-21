@@ -2,7 +2,7 @@
   (:require [clj-webapp.handler.player :refer [create-player delete-player list-players update-player]]
             [clj-webapp.handler.session :refer [create-session get-session]]
             [clj-webapp.handler.snippet :refer [accept-snippet]]
-            [clj-webapp.translate :refer [get-translation]]
+            [clj-webapp.handler.translate :refer [get-translation]]
             [clojure.edn :as edn]
             [compojure.core :refer :all]
             [compojure.route :as route]

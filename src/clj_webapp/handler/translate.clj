@@ -1,4 +1,4 @@
-(ns clj-webapp.translate
+(ns clj-webapp.handler.translate
   (:require [clj-http.client :as client]) )
 
 (def translator "翻译的API URL" "http://localhost:3001/translate")
