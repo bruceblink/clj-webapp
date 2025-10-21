@@ -1,4 +1,4 @@
-(ns clj-webapp.sentences
+(ns clj-webapp.handler.sentences
   (:require [clojure.string :refer [trim]]))
 
 (defn sentence-split
