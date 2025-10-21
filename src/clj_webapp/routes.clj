@@ -1,25 +1,13 @@
 (ns clj-webapp.routes
   (:require [clj-webapp.handler.player :refer [create-player delete-player list-players update-player]]
             [clj-webapp.handler.session :refer [create-session get-session]]
+            [clj-webapp.handler.snippet :refer [accept-snippet]]
             [clj-webapp.translate :refer [get-translation]]
             [clojure.edn :as edn]
             [compojure.core :refer :all]
             [compojure.route :as route]
             [ring.util.response :refer [response]]
             ))
-
-;; 定义 snippets
-(def snippets (repeatedly promise))
-
-(defn accept-snippet [session n text]        ;; 新增支持session
-  (deliver (nth (:snippets session) n) text)
-  )
-
-;; 后台异步打印提交的 snippet
-(future
-  (doseq [snippet (map deref snippets)]
-    (println snippet))
-  )
 
 (defroutes app-routes
            (GET "/" [] "Hello World")
