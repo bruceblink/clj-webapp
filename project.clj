@@ -7,6 +7,7 @@
                  [ring/ring-defaults "0.4.0"]
                  [ring/ring-jetty-adapter "1.10.0"]
                  [cheshire "5.0.1"]
+                 [clj-http "0.7.0"]
                  [schejulure "0.1.4"]
                  [org.flatland/useful "0.10.0"]]
   :plugins [[lein-ring "0.12.5"]]
