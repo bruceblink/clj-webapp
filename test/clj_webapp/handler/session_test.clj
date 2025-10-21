@@ -1,6 +1,6 @@
-(ns clj-webapp.session-test
+(ns clj-webapp.handler.session-test
   (:require [clojure.test :refer [deftest is testing]]
-            [clj-webapp.session :refer :all]))
+            [clj-webapp.handler.session :refer :all]))
 
 (deftest test-new-and-get-session
   (testing "new session creation and get-session update"
