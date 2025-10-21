@@ -1,5 +1,5 @@
 (defproject clj-webapp "0.1.0"
-  :description "FIXME: write description"
+  :description "一个使用compojure开发的 Clojure web app "
   :url "https://github.com/bruceblink/clj-webapp"
   :min-lein-version "2.0.0"
   :dependencies [[org.clojure/clojure "1.11.1"]
