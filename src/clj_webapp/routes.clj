@@ -1,11 +1,11 @@
 (ns clj-webapp.routes
-  (:require [cheshire.core :as json]
+  (:require [clj-webapp.handler.player :refer [create-player delete-player list-players update-player]]
             [clj-webapp.session :refer [create-session get-session]]
             [clj-webapp.translate :refer [get-translation]]
             [clojure.edn :as edn]
             [compojure.core :refer :all]
             [compojure.route :as route]
-            [ring.util.response :refer [response status]]
+            [ring.util.response :refer [response]]
             ))
 
 ;; 定义 snippets
@@ -20,19 +20,6 @@
   (doseq [snippet (map deref snippets)]
     (println snippet))
   )
-;; 定义 players 的原子类型
-(def players (atom ()))
-
-;; 查询players
-(defn list-players []
-  (response (json/encode @players))
-  )
-
-;; 创建 player
-(defn creat-player [player-name]
-  (swap! players conj player-name)
-  (status (response "") 201)
-  )
 
 (defroutes app-routes
            (GET "/" [] "Hello World")
@@ -42,9 +29,23 @@
 
            (POST "/api/echo" {body :body}
              (str "You posted: " (slurp body)))
+           ;; players相关的 API
+           (GET "/players" [] (response (list-players)))
 
-           (GET "/players" [] (list-players))
-           (PUT "/players/:player-name" [player-name] (creat-player player-name))
+           (PUT "/players/:player-name" [player-name :as req]
+             (let [{:keys [new-name]} (:body req)]  ;; 从 JSON body 里取新名字
+               (response (update-player player-name new-name))
+               )
+             )
+
+           (DELETE "/players/:player-name" [player-name]
+             (response (delete-player player-name))
+             )
+
+           (POST "/players" {body :body}
+             (let [{:keys [player-name]} body]
+               (response (create-player player-name)))
+             )
 
            (POST "/session/create" []
              (response (str (create-session)))
