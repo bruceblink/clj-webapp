@@ -1,6 +1,6 @@
 (ns clj-webapp.routes
   (:require [clj-webapp.handler.player :refer [create-player delete-player list-players update-player]]
-            [clj-webapp.session :refer [create-session get-session]]
+            [clj-webapp.handler.session :refer [create-session get-session]]
             [clj-webapp.translate :refer [get-translation]]
             [clojure.edn :as edn]
             [compojure.core :refer :all]

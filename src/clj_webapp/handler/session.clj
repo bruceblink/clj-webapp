@@ -1,4 +1,4 @@
-(ns clj-webapp.session
+(ns clj-webapp.handler.session
   (:require [clj-webapp.sentences :refer [strings->sentences]]
             [clj-webapp.translate :refer [translate]]))
 
