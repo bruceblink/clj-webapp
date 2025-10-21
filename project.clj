@@ -15,6 +15,17 @@
   :ring {:handler clj-webapp.core/app}
   :main ^:skip-aot clj-webapp.core
   :target-path "target/%s"
-  :profiles {:uberjar {:aot :all :jvm-opts ["-Dclojure.compiler.direct-linking=true"]} }
-  :dev {:dependencies [[javax.servlet/servlet-api "2.5"]
-                       [ring/ring-mock "0.3.2"]]})
+  :profiles {
+             ;; 生产构建
+             :uberjar {:aot :all
+                       :jvm-opts ["-Dconfig=prod"
+                                  "-Dclojure.compiler.direct-linking=true"]}
+             ;; 开发环境
+             :dev {:dependencies [[javax.servlet/servlet-api "2.5"] [ring/ring-mock "0.3.2"]]
+                   :source-paths ["dev"]
+                   :jvm-opts ["-Dconfig=dev"]
+                   }
+             ;; 测试环境
+             :test {:resource-paths ["test/resources"]
+                    :jvm-opts ["-Dconfig=test"]}
+             })
